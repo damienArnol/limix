@@ -27,7 +27,7 @@ class SQExpCov(Covariance):
         assert_finite_array(X)
         self.X = X
 
-        self.penalty = None
+        self.penalty_function = None
 
         if Xstar is not None:
             Xstar = assert_make_float_array(Xstar, "Xstar")

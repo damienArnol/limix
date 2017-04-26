@@ -24,8 +24,6 @@ class ZKZCov(Covariance):
 
         self.Xstar = Xstar
 
-        self.penalty = None
-
         self.penalty_function = None
 
     def get_input_dim(self):

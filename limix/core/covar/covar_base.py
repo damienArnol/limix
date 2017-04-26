@@ -108,6 +108,14 @@ class Covariance(Cached, Observed):
         print(("%s: Function K not yet implemented"%(self.__class__)))
 
     @cached('covar_base')
+    def penalty(self):
+        return 0
+
+    @cached('covar_base')
+    def penalty_grad(self, i):
+        return 0
+
+    @cached('covar_base')
     def K_hess_i_j(self,i,j):
         LG.critical("implement K_hess_i_j")
         print(("%s: Function Khess not yet implemented"%(self.__class__)))

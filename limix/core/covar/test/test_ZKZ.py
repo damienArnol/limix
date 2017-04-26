@@ -41,6 +41,33 @@ class TestZKZ(unittest.TestCase):
         x0 = np.array([self._cov.scale])
         err = mcheck_grad(func, grad, x0)
 
+    def test_penalty(self):
+
+        self._cov.setPenalty(10.,2.)
+        def func(x, i):
+            self._cov.scale = x[i]
+            return self._cov.K()
+
+        def grad(x, i):
+            self._cov.scale = x[i]
+            return self._cov.K_grad_i(0)
+
+        x0 = np.array([self._cov.scale])
+        err = mcheck_grad(func, grad, x0)
+
+        np.testing.assert_almost_equal(err, 0, decimal=5)
+
+        def func(x, i):
+            self._cov.length = x[i]
+            return self._cov.K()
+
+        def grad(x, i):
+            self._cov.scale = x[i]
+            return self._cov.K_grad_i(1)
+
+        x0 = np.array([self._cov.scale])
+        err = mcheck_grad(func, grad, x0)
+
 
 if __name__ == '__main__':
     unittest.main()

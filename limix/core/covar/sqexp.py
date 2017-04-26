@@ -27,6 +27,8 @@ class SQExpCov(Covariance):
         assert_finite_array(X)
         self.X = X
 
+        self.penalty = None
+
         if Xstar is not None:
             Xstar = assert_make_float_array(Xstar, "Xstar")
             assert_finite_array(Xstar)
@@ -178,7 +180,7 @@ class SQExpCov(Covariance):
     #####################
     @cached('X')
     def E(self):
-        rv = SS.distance.pdist(self.X,'euclidean')**2
+        rv = SS.distance.pdist(self.X,'euclidean')**2.
         rv = SS.distance.squareform(rv)
         return rv
 

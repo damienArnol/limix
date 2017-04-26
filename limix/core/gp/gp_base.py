@@ -148,6 +148,8 @@ class GP(Cached, Observed):
         if self.mean.n_covs > 0:
             rv += 0.5*self.Areml.logdet()
             rv -= 0.5*self.yKiWb()
+        # add penalty terms
+        rv += self.covar.penalty()
         return rv
 
     @cached('gp_base')
@@ -186,6 +188,7 @@ class GP(Cached, Observed):
             if self.mean.n_covs > 0:
                 RV['covar'][i] += 0.5*self.Areml.logdet_grad_i(i)
                 RV['covar'][i] -= 0.5*self.yKiWb_grad_i(i)
+            RV['covar'][i] += self.covar.penalty_grad(i)
         return RV
 
     def predict(self):
